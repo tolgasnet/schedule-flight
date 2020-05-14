@@ -9,11 +9,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
   "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.6",
+    "jest": "^26.0.1",
     "nodemon": "^2.0.4"
   }
 }
