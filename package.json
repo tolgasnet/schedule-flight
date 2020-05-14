@@ -2,9 +2,10 @@
   "name": "lilium",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js"
+    "start": "nodemon --exec babel-node src/server.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,10 @@
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.6",
     "jest": "^26.0.1",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testRegex": "/src/.*Test.js$"
   }
 }
