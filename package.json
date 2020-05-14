@@ -1,7 +1,19 @@
 {
-  "name": "lilium-tech-test",
+  "name": "lilium",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
-  "author": "Tolga Sofuoglu",
-  "license": "MIT"
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.6",
+    "nodemon": "^2.0.4"
+  }
 }
