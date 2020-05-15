@@ -1,10 +1,9 @@
-import low from "lowdb";
-import FileSync from "lowdb/adapters/FileSync";
-
-const adapter = new FileSync("src/crew/db/crewDb.json");
-const db = low(adapter);
+import { getCollection } from "../shared/database";
 
 export const getCrewFromDb = (location) => {
-  const data = db.get("Crew");
-  return data.find({ Base: location }).Crew;
+  var collection = getCollection("Crew");
+
+  return collection.filter((record) => {
+    record.Base === location;
+  });
 };

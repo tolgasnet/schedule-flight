@@ -1,12 +1,11 @@
 import { getCrewFromDb } from "./crewRepository";
-import { getDaysOfWeek, isInDateRange } from "../utilities/date";
+import { getDaysOfWeek, isInDateRange } from "../shared/date";
 import { getSchedule } from "../schedule/scheduleService";
 import logger from "../logger";
 const log = logger("crewService");
 
 export const getCrew = (location, departureUtc, returnUtc) => {
   const crewByLocation = getCrewFromDb(location);
-  log.debug("Found %d pilots in location", crewByLocation.length);
 
   const crewByWorkDays = filterByWorkDays(
     crewByLocation,
@@ -14,13 +13,24 @@ export const getCrew = (location, departureUtc, returnUtc) => {
     returnUtc,
   );
 
-  const availableCrew = filterBySchedule(
+  const crewBySchedule = filterBySchedule(
     crewByWorkDays,
     departureUtc,
     returnUtc,
   );
 
-  const firstAvailableCrew = availableCrew[0];
+  log.debug(
+    "Pilots filtered by location: %d / by workdays: %d / by schedule: %d",
+    crewByLocation.length,
+    crewByWorkDays.length,
+    crewBySchedule.length,
+  );
+
+  if (crewBySchedule.length === 0) {
+    return null;
+  }
+
+  const firstAvailableCrew = crewBySchedule[0];
 
   return { ID: firstAvailableCrew.ID, Name: firstAvailableCrew.Name };
 };

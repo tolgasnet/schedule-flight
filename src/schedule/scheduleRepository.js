@@ -1,9 +1,5 @@
-import low from "lowdb";
-import FileSync from "lowdb/adapters/FileSync";
-
-const adapter = new FileSync("src/schedule/db/scheduleDb.json");
-const db = low(adapter);
+import { getCollection } from "../shared/database";
 
 export const getScheduleFromDb = () => {
-  return db.get("Schedule").Schedule;
+  return getCollection("Schedule");
 };
