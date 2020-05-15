@@ -14,7 +14,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "log4js": "^6.2.1"
+    "log4js": "^6.2.1",
+    "lowdb": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -30,6 +31,7 @@
     "jest": "^26.0.1",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
+    "query-string": "^6.12.1",
     "supertest": "^4.0.2"
   },
   "jest": {

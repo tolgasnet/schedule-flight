@@ -1,5 +1,5 @@
 import express from "express";
-import { getSchedules } from "./schedule/scheduleController";
+import { getAvailablePilot } from "./crew/crewController";
 
 const app = express();
 
@@ -8,6 +8,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.use("/schedules", getSchedules);
+app.use("/pilot", getAvailablePilot);
 
 export default app;
