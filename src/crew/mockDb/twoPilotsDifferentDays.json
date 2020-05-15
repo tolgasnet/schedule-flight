@@ -1,0 +1,14 @@
+[
+  {
+    "ID": 1,
+    "Name": "Andy",
+    "Base": "Berlin",
+    "WorkDays": ["Monday", "Tuesday", "Wednesday"]
+  },
+  {
+    "ID": 2,
+    "Name": "Betty",
+    "Base": "Berlin",
+    "WorkDays": ["Thursday", "Friday", "Saturday", "Sunday"]
+  }
+]

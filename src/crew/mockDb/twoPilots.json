@@ -1,32 +1,30 @@
-{
-  "Crew": [
-    {
-      "ID": 1,
-      "Name": "Andy",
-      "Base": "Berlin",
-      "WorkDays": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday"
-      ]
-    },
-    {
-      "ID": 2,
-      "Name": "Betty",
-      "Base": "Berlin",
-      "WorkDays": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday"
-      ]
-    }
-  ]
-}
+[
+  {
+    "ID": 1,
+    "Name": "Andy",
+    "Base": "Berlin",
+    "WorkDays": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ]
+  },
+  {
+    "ID": 2,
+    "Name": "Betty",
+    "Base": "Berlin",
+    "WorkDays": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ]
+  }
+]
