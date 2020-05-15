@@ -1,0 +1,12 @@
+[
+  {
+    "PilotID": 1,
+    "depDateTime": "2020-07-25T09:00:00Z",
+    "returnDateTime": "2020-07-26T11:00:00Z"
+  },
+  {
+    "PilotID": 2,
+    "depDateTime": "2020-07-25T09:00:00Z",
+    "returnDateTime": "2020-07-26T11:00:00Z"
+  }
+]

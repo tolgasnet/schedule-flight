@@ -12,3 +12,9 @@ export const getDaysOfWeek = (startDate, endDate) => {
 
   return dates;
 };
+
+export const isInDateRange = (dateA, dateB, dateX, dateY) => {
+  return (
+    dateX.isBetween(dateA, dateB) || dateY.isBetween(dateA, dateB)
+  );
+};

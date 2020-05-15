@@ -10,5 +10,11 @@
     "Name": "Betty",
     "Base": "Berlin",
     "WorkDays": ["Thursday", "Friday", "Saturday", "Sunday"]
+  },
+  {
+    "ID": 3,
+    "Name": "David",
+    "Base": "Berlin",
+    "WorkDays": ["Thursday", "Friday", "Saturday", "Sunday"]
   }
 ]
