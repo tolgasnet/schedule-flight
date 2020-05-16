@@ -1,0 +1,4 @@
+{
+  "verbose": true,
+  "testRegex": "src/.*Test(s)?.js$"
+}

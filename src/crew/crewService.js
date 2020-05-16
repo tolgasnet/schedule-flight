@@ -5,32 +5,24 @@ import logger from "../logger";
 const log = logger("crewService");
 
 export const getCrew = (location, departureUtc, returnUtc) => {
-  const crewByLocation = getCrewFromDb(location);
+  const allCrew = getCrewFromDb();
 
-  const crewByWorkDays = filterByWorkDays(
-    crewByLocation,
-    departureUtc,
-    returnUtc,
-  );
-
-  const crewBySchedule = filterBySchedule(
-    crewByWorkDays,
-    departureUtc,
-    returnUtc,
-  );
+  const crewByLocation = allCrew.filter((crew) => crew.Base === location);
+  const crewByDays = filterByWorkDays(crewByLocation, departureUtc, returnUtc);
+  const availableCrew = filterBySchedule(crewByDays, departureUtc, returnUtc);
 
   log.debug(
-    "Pilots filtered by location: %d / by workdays: %d / by schedule: %d",
-    crewByLocation.length,
-    crewByWorkDays.length,
-    crewBySchedule.length,
+    "Crew by location: %d / by workdays: %d / by schedule: %d",
+    allCrew.length,
+    crewByDays.length,
+    availableCrew.length,
   );
 
-  if (crewBySchedule.length === 0) {
+  if (availableCrew.length === 0) {
     return null;
   }
 
-  const firstAvailableCrew = crewBySchedule[0];
+  const firstAvailableCrew = availableCrew[0];
 
   return { ID: firstAvailableCrew.ID, Name: firstAvailableCrew.Name };
 };

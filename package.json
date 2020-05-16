@@ -34,8 +34,5 @@
     "prettier": "^2.0.5",
     "query-string": "^6.12.1",
     "supertest": "^4.0.2"
-  },
-  "jest": {
-    "testRegex": "src/.*Test(s)?.js$"
   }
 }
