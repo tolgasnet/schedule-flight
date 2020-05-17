@@ -3,10 +3,10 @@ import app from "../app";
 import queryStringBuilder from "query-string";
 import { getCrewFromDb } from "./crewRepository";
 import { getScheduleFromDb } from "../schedule/scheduleRepository";
-import mockEveryDay from "./mockDb/mockEveryDay.json";
-import mockCertainDays from "./mockDb/mockCertainDays.json";
-import mockOneAvailableSchedule from "./mockDb/mockOneAvailableSchedule.json";
-import mockNoSchedules from "./mockDb/mockNoSchedules.json";
+import mockEveryDay from "./mockData/mockEveryDay.json";
+import mockCertainDays from "./mockData/mockCertainDays.json";
+import mockSomeSchedules from "../schedule/mockData/mockSomeSchedules.json";
+import mockNoSchedules from "../schedule/mockData/mockNoSchedules.json";
 
 const request = supertest(app);
 jest.mock("./crewRepository");
@@ -52,7 +52,7 @@ describe("GET /pilot", () => {
   describe("there are previously scheduled flights", () => {
     test("and pilots work certain days", async () => {
       getCrewFromDb.mockReturnValue(mockCertainDays);
-      getScheduleFromDb.mockReturnValue(mockOneAvailableSchedule);
+      getScheduleFromDb.mockReturnValue(mockSomeSchedules);
 
       const queryString = queryStringBuilder.stringify({
         location: "Berlin",

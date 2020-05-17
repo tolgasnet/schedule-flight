@@ -1,22 +1,22 @@
 import { getCrewFromDb } from "./crewRepository";
-import { getDaysOfWeek, isInDateRange } from "../shared/date";
-import { getSchedule } from "../schedule/scheduleService";
+import { getScheduleFromDb } from "../schedule/scheduleRepository";
+import { getDaysOfWeek } from "../shared/date";
 import logger from "../logger";
+import { Pilot } from "./pilot";
 const log = logger("crewService");
 
 export const getCrew = (location, departureUtc, returnUtc) => {
-  const allCrew = getCrewFromDb();
+  const requestedDays = getDaysOfWeek(departureUtc, returnUtc);
+  const schedule = getScheduleFromDb();
+  const allCrew = getCrewFromDb().map((pilot) => new Pilot(pilot, schedule));
 
-  const crewByLocation = allCrew.filter((crew) => crew.Base === location);
-  const crewByDays = filterByWorkDays(crewByLocation, departureUtc, returnUtc);
-  const availableCrew = filterBySchedule(crewByDays, departureUtc, returnUtc);
-
-  log.debug(
-    "Crew by location: %d / by workdays: %d / by schedule: %d",
-    allCrew.length,
-    crewByDays.length,
-    availableCrew.length,
+  const availableCrew = allCrew.filter(
+    (pilot) =>
+      pilot.inLocation(location) &&
+      pilot.isAvailable(requestedDays, departureUtc, returnUtc),
   );
+
+  log.debug("Found %d available crew", availableCrew.length);
 
   if (availableCrew.length === 0) {
     return null;
@@ -25,28 +25,4 @@ export const getCrew = (location, departureUtc, returnUtc) => {
   const firstAvailableCrew = availableCrew[0];
 
   return { ID: firstAvailableCrew.ID, Name: firstAvailableCrew.Name };
-};
-
-const filterByWorkDays = (crew, departureUtc, returnUtc) => {
-  const requestedDays = getDaysOfWeek(departureUtc, returnUtc);
-  return crew.filter((crew) => {
-    return requestedDays.every((requested) =>
-      crew.WorkDays.includes(requested),
-    );
-  });
-};
-
-const filterBySchedule = (crew, departureUtc, returnUtc) => {
-  const allScheduledFlights = getSchedule();
-  return crew.filter((eachCrew) => {
-    return allScheduledFlights.filter((schedule) => {
-      schedule.PilotID === eachCrew.ID &&
-        !isInDateRange(
-          schedule.depDateTime,
-          schedule.returnDateTime,
-          departureUtc,
-          returnUtc,
-        );
-    });
-  });
 };

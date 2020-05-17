@@ -14,5 +14,9 @@ export const getDaysOfWeek = (startDate, endDate) => {
 };
 
 export const isInDateRange = (dateA, dateB, dateX, dateY) => {
-  return dateX.isBetween(dateA, dateB) || dateY.isBetween(dateA, dateB);
+  const overlap =
+    moment.max(moment(dateA), moment(dateX)) <
+    moment.min(moment(dateB), moment(dateY));
+
+  return overlap;
 };
