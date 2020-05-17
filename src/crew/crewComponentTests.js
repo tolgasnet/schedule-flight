@@ -50,7 +50,7 @@ describe("GET /pilot", () => {
   });
 
   describe("there are previously scheduled flights", () => {
-    test("and pilots work certain days", async () => {
+    test("and pilots work only certain days", async () => {
       getCrewFromDb.mockReturnValue(mockCertainDays);
       getScheduleFromDb.mockReturnValue(mockSomeSchedules);
 
@@ -58,6 +58,39 @@ describe("GET /pilot", () => {
         location: "Berlin",
         depDateTime: "2020-07-24T09:00:00Z",
         returnDateTime: "2020-07-26T11:00:00Z",
+      });
+      const response = await request.get(`/pilot?${queryString}`);
+
+      expect(response.body.Crew).toEqual({
+        ID: 3,
+        Name: "David",
+      });
+    });
+
+    test("and requests are distributed to the less busy pilots first", async () => {
+      const pilot1Flight = {
+        PilotID: 1,
+        DepDateTime: "2019-05-01T09:00:00Z",
+        ReturnDateTime: "2019-05-01T11:00:00Z",
+      };
+
+      const pilot2Flight = {
+        PilotID: 2,
+        DepDateTime: "2019-05-01T09:00:00Z",
+        ReturnDateTime: "2019-05-01T11:00:00Z",
+      };
+
+      getScheduleFromDb.mockReturnValue([
+        pilot1Flight,
+        pilot1Flight,
+        pilot2Flight,
+      ]);
+      getCrewFromDb.mockReturnValue(mockEveryDay);
+
+      const queryString = queryStringBuilder.stringify({
+        location: "Berlin",
+        depDateTime: "2020-07-24T09:00:00Z",
+        returnDateTime: "2020-07-24T11:00:00Z",
       });
       const response = await request.get(`/pilot?${queryString}`);
 

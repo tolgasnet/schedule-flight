@@ -13,6 +13,10 @@ export class Pilot {
     });
   }
 
+  get flightCount() {
+    return this.Schedule.length;
+  }
+
   isAvailable(requestedDays, departureUtc, returnUtc) {
     const worksOnDays = this.worksOnDays(requestedDays);
     const overlappingFlights =
@@ -52,5 +56,16 @@ export class Pilot {
         )
       );
     });
+  }
+
+  // to distribute the requests evenly
+  compare(otherPilot) {
+    if (otherPilot.flightCount > this.flightCount) {
+      return 1;
+    } else if (this.flightCount > otherPilot.flightCount) {
+      return -1;
+    }
+
+    return 0;
   }
 }

@@ -8,13 +8,15 @@ const log = logger("crewService");
 export const getCrew = (location, departureUtc, returnUtc) => {
   const requestedDays = getDaysOfWeek(departureUtc, returnUtc);
   const schedule = getScheduleFromDb();
-  const allCrew = getCrewFromDb().map((pilot) => new Pilot(pilot, schedule));
+  const allPilots = getCrewFromDb().map((pilot) => new Pilot(pilot, schedule));
 
-  const availableCrew = allCrew.filter(
-    (pilot) =>
-      pilot.inLocation(location) &&
-      pilot.isAvailable(requestedDays, departureUtc, returnUtc),
-  );
+  const availableCrew = allPilots
+    .filter(
+      (pilot) =>
+        pilot.inLocation(location) &&
+        pilot.isAvailable(requestedDays, departureUtc, returnUtc),
+    )
+    .sort((a, b) => b.compare(a));
 
   log.debug("Found %d available crew", availableCrew.length);
 
